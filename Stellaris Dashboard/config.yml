@@ -11,7 +11,7 @@ check_version: true
 log_level: INFO
 include_id_in_names: false
 show_everything: true
-filter_events_by_type: true
+filter_events_by_type: false
 show_all_country_types: true
 save_name_filter: ''
 plot_time_resolution: 500

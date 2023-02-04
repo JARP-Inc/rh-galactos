@@ -15,9 +15,9 @@ const Article: FC<props> = () => {
     <>
       <DataBlock data={data} />
       <img src={image_url} />
-      <div className='grid grid-cols-4'>
-        <div className='col-span-3'>{content}</div>
-        <div className='col-span-1'>
+      <div className="grid grid-cols-4">
+        <div className="col-span-3">{content}</div>
+        <div className="col-span-1">
           <AuthorBlock name={author} />
         </div>
       </div>

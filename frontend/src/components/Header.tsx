@@ -7,12 +7,14 @@ interface props {}
 const Header: FC<props> = () => {
   return (
     <>
-      <header className='px-16 py-6 h-[14vh] flex justify-between items-center bg-blue-900 text-white'>
-        <div className='h-5/6 flex gap-10 items-center'>
-          <img className='h-full cursor-pointer' src={Logo} />
-          <h1 className='text-4xl cursor-pointer'>Γαλάχτοσ</h1>
+      <header className="bg-primary sticky top-0 z-10 mb-10 flex h-[14vh] items-center justify-between px-16 py-6 text-white shadow-md">
+        <div className="flex h-5/6 items-center gap-10">
+          <img className="h-full cursor-pointer" src={Logo} />
+          <a href="/" className="cursor-pointer text-4xl">
+            Γαλάχτοσ
+          </a>
         </div>
-        <div className='h-max'>
+        <div className="cursor-pointer">
           <AuthProfile />
         </div>
       </header>

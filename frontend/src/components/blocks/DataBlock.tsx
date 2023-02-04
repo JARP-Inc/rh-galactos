@@ -7,9 +7,9 @@ interface props {
 let DataBlock: FC<props> = ({ data }) => {
   let { title, in_game_date: date } = data;
   return (
-    <div>
-      <h1>{title}</h1>
-      <h2>{date}</h2>
+    <div className="flex flex-col gap-2">
+      <h1 className="text-info text-3xl font-bold">{title}</h1>
+      <h2 className="text-secondary text-lg">{date}</h2>
     </div>
   );
 };

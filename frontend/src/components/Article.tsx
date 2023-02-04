@@ -12,16 +12,17 @@ const Article: FC<props> = () => {
 
   let { author, content, image_url } = data;
   return (
-    <>
+    <div className="flex flex-col gap-9 py-16">
       <DataBlock data={data} />
-      <img src={image_url} />
-      <div className="grid grid-cols-4">
-        <div className="col-span-3">{content}</div>
-        <div className="col-span-1">
+      <img className="overflow-hidden rounded-md bg-cover" src={image_url} />
+
+      <div className="">
+        <div className="float-right ml-6 mb-3 w-1/4">
           <AuthorBlock name={author} />
         </div>
+        <div className="whitespace-pre-wrap text-justify">{content}</div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -18,7 +18,7 @@ const Article: FC<props> = () => {
 
       <div className="">
         <div className="float-right ml-6 mb-3 w-1/4">
-          {/* <AuthorBlock authorID={author} /> */}
+          <AuthorBlock authorID={author} />
         </div>
         <div className="whitespace-pre-wrap text-justify">{content}</div>
       </div>

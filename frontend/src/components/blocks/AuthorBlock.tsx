@@ -2,11 +2,11 @@ import type { FC } from "react";
 import getAuthor from "../../hooks/getAuthor";
 
 interface props {
-  name: string;
+  authorID: string;
 }
 
-let Author: FC<props> = ({ name }) => {
-  let { picture_url, description } = getAuthor(name);
+let Author: FC<props> = ({ authorID }) => {
+  let { picture_url, description, name } = getAuthor(authorID);
   return (
     <>
       <img src={picture_url} />

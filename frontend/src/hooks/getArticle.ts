@@ -2,7 +2,7 @@ function getArticle(id: string): Article {
   //check id is ok
   //get &return data
   return {
-    author: "Sir Humphrey",
+    author: "sirHumphrey",
     content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet elementum lectus, eget imperdiet elit pharetra quis. Proin tincidunt fermentum nisi sit amet congue. Phasellus tempus lobortis eros non cursus. Ut eleifend nisl id ipsum aliquet sodales. Ut tristique, diam quis faucibus tristique, erat metus tincidunt urna, ac rutrum purus lectus at urna. Duis at est sit amet magna fermentum cursus dictum a magna. Cras ullamcorper vestibulum mi, at ultricies metus tristique quis. Quisque ac neque a massa faucibus lacinia non sit amet sapien. Mauris fermentum, nunc vel aliquet dapibus, leo nulla mollis odio, a ultricies tortor odio nec elit. Proin lorem nisi, commodo vitae faucibus nec, cursus at justo. Ut rhoncus viverra turpis, non viverra ante tincidunt finibus.
 
     Vivamus leo metus, volutpat in odio id, luctus mollis libero. Vestibulum semper elit elementum orci sodales hendrerit. In in nisi odio. Praesent sagittis tempor tristique. Cras pharetra varius facilisis. Donec dapibus nisl at cursus mattis. Aenean quam odio, elementum ac lacus at, elementum vestibulum tortor. Aenean quis purus metus.

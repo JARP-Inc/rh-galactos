@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "prettier-plugin-astro": "^0.8.0",
+    "prettier-plugin-tailwindcss": "^0.2.2"
+  }
+}

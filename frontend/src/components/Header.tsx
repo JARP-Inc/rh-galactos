@@ -1,3 +1,4 @@
+import { ModalProvider } from "@hooks/useModal";
 import type { FC } from "react";
 import AuthProfile from "./AuthProfile";
 
@@ -5,7 +6,7 @@ interface props {}
 
 const Header: FC<props> = () => {
   return (
-    <>
+    <ModalProvider>
       <div className="navbar bg-primary sticky top-0 z-10 px-16 shadow-lg">
         <div className="flex-1 items-center gap-10">
           <img className="my-6 h-16" src={"/Logo.svg"} />
@@ -26,7 +27,7 @@ const Header: FC<props> = () => {
           <AuthProfile />
         </div>
       </div>
-    </>
+    </ModalProvider>
   );
 };
 

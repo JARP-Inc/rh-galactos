@@ -1,8 +1,9 @@
 ---
 import RecentArticles from "@components/RecentArticles";
 import Layout from "@layouts/Layout.astro";
+import getArticles from "@hooks/getArticles";
 ---
 
 <Layout>
-  <RecentArticles />
+  <RecentArticles client:only />
 </Layout>

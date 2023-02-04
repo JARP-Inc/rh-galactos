@@ -5,7 +5,7 @@ interface props {
 }
 
 let DataBlock: FC<props> = ({ data }) => {
-  let { title, in_game_date: date } = data;
+  let { title, date: date } = data;
   return (
     <div className="flex flex-col gap-2">
       <h1 className="text-info text-3xl font-bold">{title}</h1>

@@ -2,6 +2,7 @@
 layout: "@layouts/author.astro"
 name: Sir Humphrey Appleby
 picture_url: /sir_humphrey.jpg
+title: Economics and Government correspondent
 ---
 
 Sir Appleby, economics and government correspondent for Γαλάχοτσ, has had a long and illustrious career within the ministry for administrative affairs that gives him unparalleled insight into the inner working of governments around the galaxy.

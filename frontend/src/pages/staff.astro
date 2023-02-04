@@ -1,0 +1,34 @@
+---
+import StaffCard from "@components/StaffCard";
+import Layout from "@layouts/Layout.astro";
+
+let author = {
+  name: "Sir Humphrey",
+  image_url: "/sir_humphrey.jpg",
+  description: "",
+  title: "Economics and Government correspondent ",
+};
+---
+
+<Layout>
+  <div class="grid w-full grid-cols-3 gap-y-10 justify-items-center">
+    <div class="col-span-1">
+      <StaffCard author={author} />
+    </div>
+    <div class="col-span-1">
+      <StaffCard author={author} />
+    </div>
+    <div class="col-span-1">
+      <StaffCard author={author} />
+    </div>
+    <div class="col-span-1">
+      <StaffCard author={author} />
+    </div>
+    <div class="col-span-1">
+      <StaffCard author={author} />
+    </div>
+    <div class="col-span-1">
+      <StaffCard author={author} />
+    </div>
+  </div>
+</Layout>

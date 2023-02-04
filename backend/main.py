@@ -1,8 +1,9 @@
 from fastapi import FastAPI
+import articlegenerator
 
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return articlegenerator.generate_response()

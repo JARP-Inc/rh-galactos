@@ -8,7 +8,7 @@ interface props {
 const StaffCard: FC<props> = ({ author }) => {
   let { name, image_url, title } = author;
   return (
-    <div className="bg-base-200 flex w-64 flex-col items-center gap-5 rounded-xl p-5">
+    <div className="bg-base-200 hover:bg-base-300 grid h-full w-64 grid-rows-2 items-center justify-items-center gap-5 rounded-xl p-5">
       <div className="avatar">
         <div className="w-32 rounded-full">
           <img src={image_url} />

@@ -6,7 +6,7 @@ interface props {}
 const ArticleCard: FC<props> = () => {
   return (
     <>
-      <div className="card bg-base-100 min-w-[20rem] shadow-xl">
+      <div className="card bg-base-300 min-w-[20rem] shadow-xl">
         <figure>
           <img src={CoolPhoto} alt="..." />
         </figure>
@@ -14,7 +14,7 @@ const ArticleCard: FC<props> = () => {
           <h2 className="card-title">Are xombies coming for you?</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <div className="card-actions justify-end pt-2">
-            <button className="btn btn-primary">Read More</button>
+            <button className="btn btn-primary rounded-lg">Read More</button>
           </div>
         </div>
       </div>

@@ -9,13 +9,14 @@ interface props {}
 let Article: FC<props> = () => {
   let [id, _] = useQueryParam("article", "");
   let data: Article = getArticle(id);
-  let { author, content, image_URL } = data;
+
+  let { author, content, image_url } = data;
   return (
     <>
       <DataBlock data={data} />
-      <img src={image_URL} />
+      <img src={image_url} />
       <div>{content}</div>
-      <AuthorBlock author={author} />
+      <AuthorBlock name={author} />
     </>
   );
 };

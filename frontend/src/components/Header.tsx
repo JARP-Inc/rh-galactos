@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import Logo from "../assets/Logo.svg";
 import AuthProfile from "./AuthProfile";
 
 interface props {}
@@ -9,7 +8,7 @@ const Header: FC<props> = () => {
     <>
       <div className="navbar bg-primary sticky top-0 z-10 px-16 shadow-lg">
         <div className="flex-1 items-center gap-10">
-          <img className="my-6 h-16" src={Logo} />
+          <img className="my-6 h-16" src={"/Logo.svg"} />
           <a
             href="/"
             className="btn btn-link text-4xl normal-case text-white no-underline hover:no-underline"

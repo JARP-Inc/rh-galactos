@@ -2,7 +2,7 @@ interface Article {
   title: string;
   author: string; //to replace with Author
   content: string;
-  image_URL: string;
+  image_url: string;
   publication_date: string;
   in_game_date: string;
 }

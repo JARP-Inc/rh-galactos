@@ -1,3 +1,5 @@
 interface Author {
-  name: "";
+  name: string;
+  picture_url: string;
+  description: string;
 }

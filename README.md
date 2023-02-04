@@ -1,1 +1,1 @@
-# Galactos // Γαλαχτοσ
+# Galactos // Γαλάχτοσ

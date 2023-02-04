@@ -41,8 +41,23 @@ async def list_articles(page):
         return sorted_articles[pagination_slice1:pagination_slice2]
 
 
-@ router.get("/{id}", response_description="Get a single article")
-async def get_article(id):
+@ router.get("/id/{id}", response_description="Get a single article")
+async def get_article_by_id(id: int):
     with Session(main.engine) as session:
-        articles = session.exec(select(Article).where(Article.id == id))
+        article_id = Article.id
+        statement = select(Article).where(article_id == id)
+        # should add try catch to deal with out of bounds id
+        articles = session.exec(statement).one()
+        return articles
+
+
+@ router.get("/author/{author}", response_description="Get an authors articles")
+async def get_article_by_author(author):
+    with Session(main.engine) as session:
+        article_author = Article.author
+        print(article_author)
+        print(author)
+        statement = select(Article).where(article_author == author)
+        # should add try catch to deal with none existent author
+        articles = session.exec(statement).all()
         return articles

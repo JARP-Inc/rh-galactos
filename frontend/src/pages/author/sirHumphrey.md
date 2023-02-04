@@ -1,7 +1,7 @@
 ---
-layout: "@layouts/layout.astro"
+layout: "@layouts/author.astro"
 name: Sir Humphrey Appleby
-picture_url: /sir_humphrey;
+picture_url: /sir_humphrey.jpg
 ---
 
 Sir Appleby, economics and government correspondent for <GALACTOS>, has had a long and illustrious career within the ministry for administrative affairs that gives him unparalleled insight into the inner working of governments around the galaxy.

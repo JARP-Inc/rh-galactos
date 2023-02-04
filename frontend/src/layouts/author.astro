@@ -1,0 +1,26 @@
+---
+import RecentArticles from "@components/RecentArticles";
+import Layout from "./Layout.astro";
+const { name, title, picture_url } = Astro.props.frontmatter;
+---
+
+<Layout>
+  <div class="flex flex-row justify-start items-center gap-5">
+    <div class="avatar">
+      <div class="w-32 rounded-full">
+        <img src={picture_url} />
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h1 class="text-info text-3xl font-semibold">{name}</h1>
+      <h2 class="text-secondary">{title}</h2>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="text-justify"><slot /></div>
+  <div class="mt-12">
+    <h1 class="text-3xl font-semibold">Recent Articles</h1>
+    <div class="divider"></div>
+  </div>
+  <RecentArticles />
+</Layout>

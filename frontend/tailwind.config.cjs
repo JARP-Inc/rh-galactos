@@ -15,6 +15,11 @@ module.exports = {
           "box-sizing": "border-box",
           outline: "2px solid #ff6d00",
         },
+        ".my-glass": {
+          "backdrop-filter": "blur(16px) saturate(180%)",
+          "-webkit-backdrop-filter": "blur(16px) saturate(180%)",
+          "background-color": "rgba(17, 25, 40, 0.75)",
+        },
       });
     }),
   ],

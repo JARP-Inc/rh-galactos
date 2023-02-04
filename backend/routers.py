@@ -8,11 +8,11 @@ router = APIRouter()
 
 
 @router.post("/", response_description="Add new article")
-async def create_article(prompt):
+async def create_article(prompt, author):
 
-    headline, body = articlegenerator.generate_newsarticle(prompt)
+    headline, body = articlegenerator.generate_newsarticle(prompt, author)
 
-    new_article = Article(title=headline, author='me',
+    new_article = Article(title=headline, author=author,
                           content=body, time='10:12am')
 
     with Session(main.engine) as session:

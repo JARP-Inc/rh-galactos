@@ -1,0 +1,616 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<a class="button" href={{url_for("/timeline/", game_name=game_name)}}>Graph Dashboard</a>
+{% if is_filtered_page %}
+<a class="button" href={{url_for("history_page", game_id=game_name)}}>Global event ledger</a>
+{% endif %}
+{% if not is_filtered_page %}
+<div class="ledgerbox">
+    {% if wars %}
+    <a href="#wars">War logs</a>
+    <ul>
+        {% for war in wars %}
+        <li class="toc-item">{{ links[war] | safe }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <a href="#events">Country Logs</a>
+    <ul>
+        {% for country in events %}
+        <li class="toc-item">{{ links[country] | safe }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<hr>
+{% endif %}
+
+<a name="events"></a>
+
+{% for (object, events) in events.items() %}
+<div class="ledgerbox">
+    {% if not is_filtered_page %}
+    <a name=country_{{object.country_id}}></a>
+    {% endif %}
+    <h2 class="eventlist_header">{{title[object] | safe}}</h2>
+
+    <ul class="event_list">
+        {% for (itemname, value) in details[object].items() %}
+        <li class="eventitem">
+            <div class="objectdetails">
+                <span class="objectdetailskey">{{itemname}}:</span> <span class="objectdetailsvalue">{{value|safe}}</span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div style="text-align: center;"><div><span>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('researched_technology');">Technologies</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('edict');">Edicts</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('tradition');">Traditions</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('colonization');">Colonizations</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('army_combat');">Army Combat</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('fleet_combat');">Fleet Combat</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('expanded_to_system');">Outposts</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('leader_recruited');">Leader Recruitment</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="toggle_visibility('level_up');">Leader Promotion</a>
+            <a class="button vis_toggle" href={{"#country_{}".format(object.country_id)}} onclick="show_all_ledgeritems();">Show all events</a>
+        </span></div>
+    </div>
+
+    <ul class="event_list">
+        {% for event in events %}
+        {% if event["event_type"] == "ruled_empire" %}
+        <li class="eventitem ruled_empire">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {{ event["leader"].leader_class.capitalize() }} {{ links[event["leader"]] | safe }} ruled the {{ links[event["country"]] | safe}}
+                    {% if "planet" in event %} from the capital {{ links[event["planet"]] | safe }} in the {{ links[event["system"]] | safe }} system {% endif %}
+                    with agenda "{{ event["leader"].agenda }}".
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "capital_relocation" %}
+        <li class="eventitem capital_relocation">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} relocated their capital to the {{ event["planet"].planetclass }} planet {{ links[event["planet"]] | safe }}
+                    in the {{ links[event["system"]] | safe }} system.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "colonization" %}
+        <li class="eventitem colonization">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} colonized the {{ event["planet"].planetclass }}
+                    planet {{ links[event["planet"]] | safe }} in the {{ links[event["system"]] | safe }} system
+                    {% if "leader" in event%} under Governor {{ links[event["leader"]] | safe}}{% endif %}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "army_combat" %}
+        <li class="eventitem army_combat">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    Invasion of planet {{ links[event["planet"]] | safe }} in the {{ links[event["system"]] | safe }} system:
+                    Attackers {{ event["attackers"] | safe }} ({{event["attacker_exhaustion"]}} exhaustion)
+                    {% if event["attacker_victory"] %} defeated {% else %} were defeated by {% endif %}
+                    {{ event["defenders"] | safe }} (exhaustion {{event["defender_exhaustion"]}}) in the
+                    {{ links[event["war"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "fleet_combat" %}
+        <li class="eventitem fleet_combat">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    Space battle in the {{ links[event["system"]] | safe }} system:
+                    Attackers {{ event["attackers"] | safe }} ({{event["attacker_exhaustion"]}} exhaustion)
+                    {% if event["attacker_victory"] %} defeated {% else %} were defeated by {% endif %}
+                    {{ event["defenders"] | safe }} (exhaustion {{event["defender_exhaustion"]}}) in the
+                    {{ links[event["war"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "expanded_to_system" %}
+        <li class="eventitem expanded_to_system">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} built an outpost in the {{ links[event["system"]] | safe }} system, claiming it for their empire.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "conquered_system" %}
+        <li class="eventitem gained_system">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} conquered the {{ links[event["system"]] | safe }} system from the
+                    {{ links[event["target_country"]] | safe }}{% if event["war"] %} during the {{ links[event["war"]] | safe }} {% endif %}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "lost_system" %}
+        <li class="eventitem lost_system">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} lost control of the {{ links[event["system"]] | safe}}
+                    system{% if event["target_country"] %} to the {{ links[event["target_country"]] | safe }}.
+                    {% else %}, leaving it unclaimed.
+                    {% endif %}
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "level_up" %}
+        <li class="eventitem level_up">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                     {{event["leader"].leader_class.capitalize() }} {{ links[event["leader"]] | safe }} was promoted to rank {{event["description"]}}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "research_leader" %}
+        <li class="eventitem research_leader">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    Scientist {{ links[event["leader"]] | safe }} led the {{ links[event["country"]] | safe}}'s {{event["description"]}} research efforts.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "researched_technology" %}
+        <li class="eventitem researched_technology">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Scientist {{ links[event["leader"]] | safe}}
+                    {% else %} The {{ links[event["country"]] | safe}}
+                    {% endif %}
+                    researched the "{{event["description"]}}" technology.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "governed_sector" %}
+        <li class="eventitem governed_sector">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    Governor {{ links[event["leader"]] | safe }} governed the {{event["description"]}} sector{% if "planet" in event %}
+                    from planet {{ links[event["planet"]] | safe }} in the {{ links[event["system"]] | safe }} system{%endif%}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "edict" %}
+        <li class="eventitem edict">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %}Ruler {{ links[event["leader"]] | safe}}{% else %}The {{ links[event["country"]] | safe}}{% endif %}
+                    enacted the "{{event["description"]}}" edict.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "ascension_perk" %}
+        <li class="eventitem ascension_perk">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %}
+                    Ruler {{ links[event["leader"]] | safe }} ascended the {{ links[event["country"]] | safe }} with "{{event["description"]}}".
+                    {% else %}
+                    The  {{ links[event["country"]] | safe }} ascended with "{{event["description"]}}".
+                    {% endif %}
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "government_reform" %}
+        <li class="eventitem government_reform">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %}
+                    Ruler {{ links[event["leader"]] | safe }} reformed the {{ links[event["country"]] | safe }} government:
+                    {% else %}
+                    Government reforms in the {{ links[event["country"]] | safe}}:
+                    {% endif %}
+                    {{event["description"]}}
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "tradition" %}
+        <li class="eventitem tradition">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} adopted the "{{ event["description"]}}" tradition.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "faction_leader" %}
+        <li class="eventitem faction_leader">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {{ event["leader"].leader_class.capitalize() }} {{ links[event["leader"]] | safe }} was leader of the "{{ event["faction"].rendered_name}}" faction.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "first_contact" %}
+        <li class="eventitem first_contact">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} established first contact with the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "sent_rivalry" %}
+        <li class="eventitem sent_rivalry">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} declared rivalry against the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "received_rivalry" %}
+        <li class="eventitem received_rivalry">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} received a rivalry declaration from the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "closed_borders" %}
+        <li class="eventitem closed_borders">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} revoked border access to the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "received_closed_borders" %}
+        <li class="eventitem received_closed_borders">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} are denied access to the {{ links[event["target_country"]] | safe }} territories.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "embassy" %}
+        <li class="eventitem established_embassy">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} have established an embassy in the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "defensive_pact" %}
+        <li class="eventitem defensive_pact">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} entered a defensive pact with the {{ links[event["target_country"]] | safe }}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "research_agreement" %}
+        <li class="eventitem research_agreement">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} entered a research agreement with the {{ links[event["target_country"]] | safe }}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "commercial_pact" %}
+        <li class="eventitem commercial_pact">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} entered a commercial pact with the {{ links[event["target_country"]] | safe }}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "migration_treaty" %}
+        <li class="eventitem migration_treaty">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} entered a migration treaty with the {{ links[event["target_country"]] | safe }}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "non_aggression_pact" %}
+        <li class="eventitem non_aggression_pact">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} entered a non-aggression pact with the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "formed_federation" %}
+        <li class="eventitem formed_federation">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} and {{ links[event["target_country"]] | safe }} are now allied in the  "{{ event["description"] }}" federation.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "envoy_community" %}
+        <li class="eventitem envoy_community">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} sent envoy {{ links[event["leader"]] | safe }} to increase their diplomatic weight in the galactic community.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "envoy_federation" %}
+        <li class="eventitem envoy_federation">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} sent envoy {{ links[event["leader"]] | safe }} to improve the cohesion of the {{ event["description"] }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "envoy_improving_relations" %}
+        <li class="eventitem envoy_improving_relations">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} sent envoy {{ links[event["leader"]] | safe }} to improve relations with the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "envoy_harming_relations" %}
+        <li class="eventitem envoy_harming_relations">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} sent envoy {{ links[event["leader"]] | safe }} to harm relations with the {{ links[event["target_country"]] | safe }}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "joined_galactic_community" %}
+        <li class="eventitem joined_galactic_community">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} joined the Galactic Community.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "joined_galactic_council" %}
+        <li class="eventitem joined_galactic_council">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} joined the Galactic Council.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "left_galactic_community" %}
+        <li class="eventitem left_galactic_community">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} left the Galactic Community.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "left_galactic_council" %}
+        <li class="eventitem left_galactic_council">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} left the Galactic Council.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "habitat_ringworld_construction" %}
+        <li class="eventitem habitat_ringworld_construction">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    Finished construction of {{ event["description"] }} in the {{ links[event["system"]] | safe }} system{% if "leader" in event %},
+                    under Governor {{ links[event["leader"]] | safe}}{% endif %}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "leader_recruited" %}
+        <li class="eventitem leader_recruited">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} hired {{ event["leader"].leader_class }} {{ links[event["leader"]] | safe}}.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "sector_creation" %}
+        <li class="eventitem sector_creation">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} created the {{ event["description"] }} sector{% if "planet" in event %}
+                    with capital on planet {{ links[event["planet"]] | safe }} in the {{ links[event["system"]] | safe }} system
+                    {% endif %}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "new_faction" %}
+        <li class="eventitem new_faction">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    The {{ event["faction"].type }} "{{ event["faction"].rendered_name }}" faction emerged in the {{ links[event["country"]] | safe}}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "war" %}
+        <li class="eventitem war">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} entered the {{ links[event["war"]] | safe }} war{{ event["description"] }}{% if event["target_country"] %} {{ links[event["target_country"]] | safe}}{% endif %}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "peace" %}
+        <li class="eventitem peace">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+
+                    {% if "leader" in event %} Under ruler {{ links[event["leader"]] | safe}}, the
+                    {% else %} The
+                    {% endif %}
+                    {{ links[event["country"]] | safe }} made peace in the {{ links[event["war"]] | safe }} conflict.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "discovered_new_system" %}
+        <li class="eventitem discovered_new_system">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    The {{ links[event["country"]] | safe }} discovered the previously unknown {{ links[event["system"]] | safe }} system.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "terraforming" %}
+        <li class="eventitem terraforming">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {% if "leader" in event %} Under governor {{ links[event["leader"]] | safe}}, the {% endif %}{{ links[event["country"]] | safe }}
+                    terraformed the planet {{ links[event["planet"]] | safe }} in the {{ links[event["system"]] | safe }} system
+                    {{ event["description"] }}.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "planet_destroyed" %}
+        <li class="eventitem colonization">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    The planet {{ links[event["planet"]] | safe }} in the {{ links[event["system"]] | safe }} system, owned by the
+                    {{ links[event["country"]] | safe }} was destroyed. It is now a {{ event["planet"].planet_class }} planet.
+                 </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "leader_died" %}
+        <li class="eventitem leader_died">
+            <div class="eventdescription">
+                <span class="dateblock">{{event["start_date"]}}:</span>
+                <span class="eventtext">
+                    {{ event["leader"].leader_class.capitalize() }} {{ links[event["leader"]] | safe }} died or was fired.
+                </span>
+            </div>
+        </li>
+        {% elif event["event_type"] == "fleet_command" %}
+        <li class="eventitem leader_died">
+            <div class="eventdescription">
+                <span class="dateblock">{% if event["is_active"] %}(A){% endif %} {{event["start_date"]}}{% if event["end_date"] != null %} - {{event["end_date"]}}{%endif%}:</span>
+                <span class="eventtext">
+                    {{ event["leader"].leader_class.capitalize() }} {{ links[event["leader"]] | safe }} commanded the
+                    {% if event["fleet"].is_civilian_fleet %} science ship {% else %} fleet {% endif %}
+                    "{{ event["fleet"].rendered_name }}".
+                </span>
+            </div>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+<center>
+    <a class="button" href="#index">Return to Top</a>
+    {% if is_filtered_page %}
+    <a class="button" href={{url_for("history_page", game_id=game_name)}}>Clear event filters</a>
+    {% endif %}
+</center>
+{% endfor %}
+
+<script src="{{ url_for('static', filename='toggle_visibility.js') }}"></script>
+
+{% endblock %}

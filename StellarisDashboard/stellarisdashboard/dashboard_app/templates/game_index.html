@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="gamelist">
+    <ul class=entries>
+        <h1>Available Games</h1>
+        {% for game in games %}
+        <li class="game"><h3>{{ game["country_name"] }} ({{ game["game_id"] }})</h3>
+            <p>
+                {{ game["game_date"] }}, {{ game["galaxy"] }}, {{ game["difficulty"] }}
+            </p>
+            <p>
+                {{ game["num_saves"] }} saves, last updated {{ game["last_updated"] }}
+            </p>
+            <a class="button" href={{url_for("/timeline/", game_name=game["game_id"])}}>Timeline Graphs</a>
+            <a class="button" href={{url_for("history_page", game_id=game["game_id"])}}>Event Ledger</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+

@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if game_not_found %}
+<h1>Game not found</h1>
+<p>No game matches the prefix "{{game_name}}"</p>
+<center><a class="button" href="/">Return to Game Selection</a></center>
+{% endif%}
+{% endblock %}
+

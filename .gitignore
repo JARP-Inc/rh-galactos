@@ -20,3 +20,6 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Stellaris Dashboard Output files
+StellarisDashboard/output/db/**

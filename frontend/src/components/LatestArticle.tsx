@@ -12,13 +12,15 @@ const LatestArticle: FC = () => {
   return (
     <div className="card card-side bg-base-300 h-max shadow-xl">
       <div className="w-2/3">
-        <img className="bg-clip" src={"/cool-photo.jpg"} alt="" />
+        <img className="bg-clip" src={image_url} alt="" />
       </div>
       <div className="card-body w-1/3">
         <h2 className="card-title">{title}</h2>
         <p>{snippet}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Read More</button>
+          <a href={`/article/${1000}`} className="btn btn-primary">
+            Read More
+          </a>
         </div>
       </div>
     </div>

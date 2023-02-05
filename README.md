@@ -13,6 +13,7 @@ An automated newspaper generator for the popular 4X sci-fi strategy game, Stella
 ## Future plans
 - Add more author options and personalities  
 - Add user login functionality for commenting under articles.  
+- Make site mobile friendly
 
 ## Built with
 SQL  

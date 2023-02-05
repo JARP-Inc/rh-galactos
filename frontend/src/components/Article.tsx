@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 import type { FC } from "react";
 import getArticle from "../hooks/getArticle";
-import useQueryParam from "../hooks/useQueryParam";
 import AuthorBlock from "./blocks/AuthorBlock";
 import DataBlock from "./blocks/DataBlock";
 

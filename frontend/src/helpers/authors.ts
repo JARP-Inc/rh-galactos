@@ -41,7 +41,7 @@ const authorInformation: Record<string, Author> = {
     Words of wisdom from Senator Marcus: "In the realm of national defense, there can be no compromise. The safety and security of our nation must always come first."
     `,
   },
-  "sir-humphrey": {
+  "sir-humphrey-appleby": {
     name: "Sir Humphrey Appleby",
     title: "Economics and Government correspondent",
     image_url: "/sir_humphrey.jpg",

@@ -1,11 +1,13 @@
-import getArticles from "@/hooks/getArticles";
+import getArticlesByAuthor from "@/hooks/getArticlesByAuthor";
 import type { FC } from "react";
 import ArticleCard from "./ArticleCard";
 
-interface props {}
+interface props {
+  name: string;
+}
 
-const RecentArticles: FC<props> = () => {
-  let articles = getArticles().reverse();
+const RecentArticles: FC<props> = ({ name }) => {
+  let articles = getArticlesByAuthor(name).reverse();
 
   return (
     <div className="flex flex-row gap-10 overflow-scroll">

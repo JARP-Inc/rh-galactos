@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { FC } from "react";
 
 interface props {
@@ -6,15 +7,15 @@ interface props {
 }
 
 const ArticleCard: FC<props> = ({ article, articleID }) => {
-  const { title, content } = article;
+  const { title, content, image_url } = article;
 
   let snippet = content.split(".")[0] + " ...";
 
   return (
     <>
-      <div className="card bg-base-300 min-w-[20rem] shadow-xl">
+      <div className="card bg-base-300 w-[20rem] shadow-xl">
         <figure>
-          <img src="/cool-photo.jpg" alt="..." />
+          <img src={image_url} alt="..." />
         </figure>
         <div className="card-body">
           <h2 className="card-title mb-4">{title}</h2>

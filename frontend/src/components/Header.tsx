@@ -11,7 +11,7 @@ const Header: FC<props> = () => {
     <>
       <div className="navbar bg-primary sticky top-0 z-10 px-16 shadow-lg">
         <div className="flex-1 items-center gap-10">
-          <img className="my-6 h-16" src="/logo.svg" />
+          <img className="my-6 h-16" src="/Logo.svg" />
           <Link
             href="/"
             className="btn btn-link text-4xl normal-case text-white no-underline hover:no-underline"

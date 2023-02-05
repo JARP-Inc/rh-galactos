@@ -43,7 +43,7 @@ async def create_article(prompt, author):
         session.commit()
         session.refresh(new_article)
 
-    await asyncio.get_event_loop().run_in_executor(None, send_sms, phone, 'Read All About It!{}\n\nWritten by {}\n\n http://localhost:3000/article?article={}'.format(headline, unstringify(author), new_article.id))
+    await asyncio.get_event_loop().run_in_executor(None, send_sms, phone, 'Read All About It!{}\n\nWritten by {}\n\n https://galactos-production-2a2b.up.railway.app/article/{}'.format(headline, unstringify(author), new_article.id))
 
     return new_article
 

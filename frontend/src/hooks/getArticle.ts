@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 function getArticle(id: string): Article {
   const [article, setArticle] = useState<Article>({
+    id: -1,
     title: "loading...",
     author: "loading...",
     content: "",
@@ -15,7 +16,7 @@ function getArticle(id: string): Article {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:8000/articles/id/${id}`,
+      url: `https://galactos-production.up.railway.app/articles/id/${id}`,
     })
       .then((response) => {
         console.log("GET ARTICLE SUCCESS", response);

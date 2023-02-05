@@ -8,7 +8,7 @@ const getArticlesByAuthor = (authorName: string) => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:8000/articles/author/${authorName}`,
+      url: `https://galactos-production.up.railway.app/articles/author/${authorName}`,
     })
       .then((response) => {
         console.log("GET ARTICLES SUCCESS", response);

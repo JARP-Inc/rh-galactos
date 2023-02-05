@@ -8,7 +8,7 @@ const getArticles = (page: number) => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:8000/articles?page=${page}`,
+      url: `https://galactos-production.up.railway.app/articles?page=${page}`,
     })
       .then((response) => {
         console.log("GET ARTICLES SUCCESS", response);

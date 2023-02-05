@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import type { FC } from "react";
-import AuthProfile from "./AuthProfile";
+import AuthProfile from "./unused/AuthProfile";
 
 interface props {}
 

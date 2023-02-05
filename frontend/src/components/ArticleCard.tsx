@@ -3,12 +3,13 @@ import CoolPhoto from "../../assets/cool-photo.jpg";
 
 interface props {
   article: Article;
+  articleID: number;
 }
 
-const ArticleCard: FC<props> = ({ article }) => {
-  const { title, content, date, author } = article;
+const ArticleCard: FC<props> = ({ article, articleID }) => {
+  const { title, content } = article;
 
-  let snippet = content.split(".")[0];
+  let snippet = content.split(".")[0] + " ...";
 
   return (
     <>
@@ -17,10 +18,15 @@ const ArticleCard: FC<props> = ({ article }) => {
           <img src={CoolPhoto} alt="..." />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{title}</h2>
+          <h2 className="card-title mb-4">{title}</h2>
           <p>{snippet}</p>
           <div className="card-actions justify-end pt-2">
-            <button className="btn btn-primary rounded-lg">Read More</button>
+            <a
+              href={`/article?article=${articleID}`}
+              className="btn btn-primary rounded-lg"
+            >
+              Read More
+            </a>
           </div>
         </div>
       </div>

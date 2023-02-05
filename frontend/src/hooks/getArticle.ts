@@ -1,4 +1,3 @@
-import CoolPhoto from "../../assets/cool-photo.jpg";
 import axios from "axios";
 import { useEffect, useState } from "react";
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function getArticles(): Article[] {
+const getArticles = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
@@ -19,6 +19,6 @@ function getArticles(): Article[] {
   }, []);
 
   return articles;
-}
+};
 
 export default getArticles;

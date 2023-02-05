@@ -1,4 +1,5 @@
 interface Article {
+  id: number;
   title: string;
   author: string; //to replace with Author
   content: string;

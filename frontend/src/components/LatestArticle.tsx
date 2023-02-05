@@ -7,7 +7,7 @@ const LatestArticle: FC = () => {
 
   if (!article) return <></>;
 
-  let { title, content, image_url } = article;
+  let { title, content, image_url, id } = article;
   let snippet = content.split(".").slice(0, 1) + " . . .";
   return (
     <div className="card card-side bg-base-300 h-max shadow-xl">
@@ -18,7 +18,7 @@ const LatestArticle: FC = () => {
         <h2 className="card-title">{title}</h2>
         <p>{snippet}</p>
         <div className="card-actions justify-end">
-          <a href={`/article/${1000}`} className="btn btn-primary">
+          <a href={`/article/${id}`} className="btn btn-primary">
             Read More
           </a>
         </div>

@@ -7,12 +7,12 @@ interface props {
 }
 
 const RecentArticles: FC<props> = ({ name }) => {
-  let articles = getArticlesByAuthor(name).reverse();
+  let articles = getArticlesByAuthor(name);
 
   return (
     <div className="flex flex-row gap-10 overflow-scroll">
       {articles.map((article, i) => {
-        return <ArticleCard article={article} key={i} articleID={i + 1} />;
+        return <ArticleCard article={article} key={i} articleID={article.id} />;
       })}
     </div>
   );

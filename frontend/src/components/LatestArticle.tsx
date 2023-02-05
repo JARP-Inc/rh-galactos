@@ -1,19 +1,22 @@
-import type { FC } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { FC } from "react";
+import getArticles from "@/hooks/getArticles";
 
-interface props {
-  article: Article;
-}
+const LatestArticle: FC = () => {
+  let article = getArticles(0)[0];
 
-const LatestArticle: FC<props> = ({ article }) => {
-  let { title, author, content, in_game_date, image_url } = article;
+  if (!article) return <></>;
+
+  let { title, content, image_url } = article;
+  let snippet = content.split(".").slice(0, 1) + " . . .";
   return (
-    <div className="card lg:card-side bg-base-100 shadow-xl">
-      <figure>
-        <img src={image_url} alt="latestArticle" />
-      </figure>
-      <div className="card-body">
+    <div className="card card-side bg-base-300 h-max shadow-xl">
+      <div className="w-2/3">
+        <img className="bg-clip" src={"/cool-photo.jpg"} alt="" />
+      </div>
+      <div className="card-body w-1/3">
         <h2 className="card-title">{title}</h2>
-        <p>{content}</p>
+        <p>{snippet}</p>
         <div className="card-actions justify-end">
           <button className="btn btn-primary">Read More</button>
         </div>

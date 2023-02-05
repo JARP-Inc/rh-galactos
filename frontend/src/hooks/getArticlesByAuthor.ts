@@ -2,13 +2,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const getArticles = (page: number) => {
+const getArticlesByAuthor = (authorName: string) => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:8000/articles?page=${page}`,
+      url: `http://localhost:8000/articles/author/${authorName}`,
     })
       .then((response) => {
         console.log("GET ARTICLES SUCCESS", response);
@@ -17,9 +17,9 @@ const getArticles = (page: number) => {
       .catch((error) => {
         console.log("GET ARTICLES ERROR", error.response.data.error);
       });
-  }, [page]);
+  }, [authorName]);
 
   return articles;
 };
 
-export default getArticles;
+export default getArticlesByAuthor;

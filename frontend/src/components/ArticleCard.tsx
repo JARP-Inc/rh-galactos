@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { FC } from "react";
 
 interface props {
@@ -12,7 +13,7 @@ const ArticleCard: FC<props> = ({ article, articleID }) => {
 
   return (
     <>
-      <div className="card bg-base-300 min-w-[20rem] shadow-xl">
+      <div className="card bg-base-300 w-[20rem] shadow-xl">
         <figure>
           <img src="/cool-photo.jpg" alt="..." />
         </figure>

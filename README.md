@@ -1,4 +1,4 @@
-# Galactos
+# Γαλάχτωσ
 
 An automated newspaper generator for the popular 4X sci-fi strategy game, Stellaris. The app scrapes the game's save files, converts events into readable sentences, and uses these sentences as prompts in OpenAI's GPT-3 and Dall-E APIs to generate full articles and images. These are then saved to the Bit.io database and a message is sent to all players about the new article. The frontend was built with NextJS, React, and TypeScript, and the database uses PostgreSQL.
 

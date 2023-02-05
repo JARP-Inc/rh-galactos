@@ -1,25 +1,51 @@
 import main
+import asyncio
+import twilioconfig
 import articlegenerator
+from twilio.rest import Client
 from fastapi import APIRouter
 from sqlmodel import Session, select
 from models import Article
 
 router = APIRouter()
 
+settings = twilioconfig.Settings()
+
+
+def unstringify(author):
+    nweauther_list = author.split("-")
+    new_author_cap_list = []
+    for author in nweauther_list:
+        new_author_cap_list.append(author.capitalize())
+
+    return " ".join(new_author_cap_list)
+
 
 @router.post("/", response_description="Add new article")
 async def create_article(prompt, author):
 
-    headline, body = articlegenerator.generate_newsarticle(prompt, author)
+    headline, body, image_url = articlegenerator.generate_newsarticle(
+        prompt, author)
 
     new_article = Article(title=headline, author=author,
-                          content=body, time='10:12am')
+                          content=body, time='10:12am', image_url=image_url)
+
+    phone = "+447827744549"
+
+    def send_sms(to_number, body):
+        client = Client(settings.twilio_account_sid,
+                        settings.twilio_auth_token)
+        return client.messages.create(from_=settings.twilio_phone_number,
+                                      to=to_number, body=body)
 
     with Session(main.engine) as session:
         session.add(new_article)
         session.commit()
         session.refresh(new_article)
-        return new_article
+
+    await asyncio.get_event_loop().run_in_executor(None, send_sms, phone, 'Read All About It!{}\n\nWritten by {}\n\n http://localhost:3000/article?article={}'.format(headline, unstringify(author), new_article.id))
+
+    return new_article
 
 
 @router.get("/", response_description="List 5 articles given page")

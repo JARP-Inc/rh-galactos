@@ -31,4 +31,11 @@ def generate_newsarticle(prompt, author):
         presence_penalty=0.0
     )
 
-    return (headline_response["choices"][0]["text"], body_response["choices"][0]["text"])
+    image_response = openai.Image.create(
+        prompt="generate an realistic photograph, without any text in it, based on this article headline: {}".format(
+            headline_response["choices"][0]["text"]),
+        n=1,
+        size="1024x1024"
+    )
+
+    return (headline_response["choices"][0]["text"], body_response["choices"][0]["text"], image_response['data'][0]['url'])

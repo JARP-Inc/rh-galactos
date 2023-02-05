@@ -1,4 +1,4 @@
-import main
+import app
 import asyncio
 import twilioconfig
 import articlegenerator
@@ -38,7 +38,7 @@ async def create_article(prompt, author):
         return client.messages.create(from_=settings.twilio_phone_number,
                                       to=to_number, body=body)
 
-    with Session(main.engine) as session:
+    with Session(app.engine) as session:
         session.add(new_article)
         session.commit()
         session.refresh(new_article)
@@ -54,7 +54,7 @@ async def list_articles(page):
     pagination_slice1 = (5*int(page))
     pagination_slice2 = 5*(int(page)+1)
 
-    with Session(main.engine) as session:
+    with Session(app.engine) as session:
         articles = session.exec(
             select(Article)).all()
 
@@ -69,7 +69,7 @@ async def list_articles(page):
 
 @ router.get("/id/{id}", response_description="Get a single article")
 async def get_article_by_id(id: int):
-    with Session(main.engine) as session:
+    with Session(app.engine) as session:
         article_id = Article.id
         statement = select(Article).where(article_id == id)
         # should add try catch to deal with out of bounds id
@@ -79,7 +79,7 @@ async def get_article_by_id(id: int):
 
 @ router.get("/author/{author}", response_description="Get an authors articles")
 async def get_article_by_author(author):
-    with Session(main.engine) as session:
+    with Session(app.engine) as session:
         article_author = Article.author
         print(article_author)
         print(author)

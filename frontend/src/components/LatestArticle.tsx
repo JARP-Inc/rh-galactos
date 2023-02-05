@@ -5,11 +5,11 @@ interface props {
 }
 
 const LatestArticle: FC<props> = ({ article }) => {
-  let { title, author, content, date } = article;
+  let { title, author, content, in_game_date, image_url } = article;
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
       <figure>
-        <img src="/assets/cool-photo.jpg" alt="latestArticle" />
+        <img src={image_url} alt="latestArticle" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{title}</h2>

@@ -1,13 +1,18 @@
 import type { FC } from "react";
-import stringify from "../../utils/stringify";
-import getAuthor from "../../hooks/getAuthor";
+import stringify from "@/helpers/stringify";
+import authorInformation from "@/helpers/authors";
 
 interface props {
   authorID: string;
 }
 
 const AuthorBlock: FC<props> = ({ authorID }) => {
-  let { name, title, image_url, description } = getAuthor(authorID);
+  if (authorID === "loading...") return <></>;
+  if (authorID === "me") authorID = "Ambassador Olivia";
+  console.log(authorID);
+  let { name, title, image_url, description } =
+    authorInformation[stringify(authorID)]; // { name: "Loading...", description: "", title: "", image_url: "" };
+  console.log(name);
   return (
     <div className="bg-primary flex flex-col items-center gap-3 rounded-md py-6 px-7">
       <div className="avatar">

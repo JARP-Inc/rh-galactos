@@ -1,4 +1,4 @@
-const authorInformation = {
+const authorInformation: Record<string, Author> = {
   "ambassador-olivia": {
     name: "Ambassador Olivia",
     title: "Foreign Relations and Diplomacy expert",

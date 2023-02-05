@@ -4,17 +4,18 @@ import useQueryParam from "../hooks/useQueryParam";
 import AuthorBlock from "./blocks/AuthorBlock";
 import DataBlock from "./blocks/DataBlock";
 
-interface props {}
+interface props {
+  id: string;
+}
 
-const Article: FC<props> = () => {
-  let [id, _] = useQueryParam("article", "");
+const Article: FC<props> = ({ id }) => {
   let data: Article = getArticle(id);
 
-  let { author, content } = data;
+  let { author, content, image_url } = data;
   return (
     <div className="flex flex-col gap-9">
       <DataBlock data={data} />
-      {/* <img className="overflow-hidden rounded-md bg-cover" src={image_url} /> */}
+      <img className="overflow-hidden rounded-md bg-cover" src={image_url} />
 
       <div className="">
         <div className="float-right ml-6 mb-3 w-1/4">

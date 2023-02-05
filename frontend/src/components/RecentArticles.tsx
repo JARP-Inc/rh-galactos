@@ -1,4 +1,4 @@
-import getArticles from "@hooks/getArticles";
+import getArticles from "@/hooks/getArticles";
 import type { FC } from "react";
 import ArticleCard from "./ArticleCard";
 
@@ -10,7 +10,7 @@ const RecentArticles: FC<props> = () => {
   return (
     <div className="flex flex-row gap-10 overflow-scroll">
       {articles.map((article, i) => {
-        return <ArticleCard article={article} articleID={i + 1} />;
+        return <ArticleCard article={article} key={i} articleID={i + 1} />;
       })}
     </div>
   );

@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import stringify from "../utils/stringify";
+import stringify from "src/helpers/stringify";
 
 interface props {
   author: Author;

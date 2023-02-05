@@ -2,7 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function getArticle(id: string): Article {
-  const [article, setArticle] = useState<Article>({} as Article);
+  const [article, setArticle] = useState<Article>({
+    title: "loading...",
+    author: "loading...",
+    content: "",
+    image_url: "",
+    in_game_date: "",
+    publication_date: "",
+  });
 
   useEffect(() => {
     axios({

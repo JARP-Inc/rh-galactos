@@ -35,7 +35,7 @@ def generate_newsarticle(prompt, author):
         prompt="generate an realistic photograph, without any text in it, based on this article headline: {}".format(
             headline_response["choices"][0]["text"]),
         n=1,
-        size="600x900"
+        size="512x512"
     )
 
     return (headline_response["choices"][0]["text"], body_response["choices"][0]["text"], image_response['data'][0]['url'])

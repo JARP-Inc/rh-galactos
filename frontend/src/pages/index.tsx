@@ -21,16 +21,6 @@ let index: FC = () => {
         <div className="divider"></div>
       </div>
       <RecentArticles name="senator-marcus" />
-      <div className="mt-20 flex flex-col py-5">
-        <div className="text-info text-2xl font-bold">The Economy</div>
-        <div className="divider"></div>
-      </div>
-      <RecentArticles name="Sir Humphrey Appleby" />
-      <div className="mt-20 flex flex-col py-5">
-        <div className="text-info text-2xl font-bold">The Trout population</div>
-        <div className="divider"></div>
-      </div>
-      <RecentArticles name="Governor Felicity" />
     </>
   );
 };

@@ -5,11 +5,11 @@ interface props {
   author: Author;
 }
 
-let Author: FC<props> = ({ author }) => {
+let AuthorPage: FC<props> = ({ author }) => {
   let { name, title, image_url } = author;
   return (
     <>
-      <div className="flex flex-row justify-start items-center gap-5">
+      <div className="flex flex-row items-center justify-start gap-5">
         <div className="avatar">
           <div className="w-32 rounded-full">
             <img src={image_url} />
@@ -33,4 +33,4 @@ let Author: FC<props> = ({ author }) => {
   );
 };
 
-export default Author;
+export default AuthorPage;

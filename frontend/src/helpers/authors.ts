@@ -8,7 +8,7 @@ const authorInformation: Record<string, Author> = {
     Words of wisdom from Ambassador Olivia: "Diplomacy is the art of telling people to go to hell in such a way that they ask for directions."
     `,
   },
-  "deputy-director-grace.md": {
+  "deputy-director-grace": {
     name: "Deputy Director Grace",
     title: "Intelligence and National Security Analyst",
     image_url: "/deputy_director_grace.jpg",
@@ -24,7 +24,7 @@ const authorInformation: Record<string, Author> = {
 
     Words of wisdom from Governor Felicity: "Good governance starts at the local level. When we work together to improve our communities, we can create positive change that has a lasting impact."`,
   },
-  "secretary-albert'": {
+  "secretary-albert": {
     name: "Secretary Albert",
     title: "Public Administration and Policy Advisor",
     image_url: "/secretary_albert.jpg",

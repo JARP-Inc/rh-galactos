@@ -13,7 +13,7 @@ const ArticleCard: FC<props> = ({ article, articleID }) => {
 
   return (
     <>
-      <div className="card bg-base-300 w-[20rem] shadow-xl">
+      <div className="card bg-base-300 min-w-[20rem] shadow-xl">
         <figure>
           <img src={image_url} alt="..." />
         </figure>

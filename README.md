@@ -15,10 +15,15 @@ Add more author options and personalities
 Add user login functionality for commenting under articles.  
 
 ## Built with
-
-FastAPI  
+SQL
+Next
+Open
+React
 Twilio  
-Uvicorn  
-SQL-Alchemy  
-Tailwind  
-NextJS/React  
+FastAPI
+Railway
+Typescript
+  
+or  
+  
+S.N.O.R.T - FA.R.Ts

@@ -10,6 +10,7 @@ class Article(SQLModel, table=True):
     author: str = Field(index=True)
     content: str = Field(index=True)
     time: str = Field(index=True)
+    image_url: str = Field(index=True)
 
     @classmethod
     def parse_date(cls, date_str: str) -> datetime:

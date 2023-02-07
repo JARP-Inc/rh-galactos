@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import type { FC } from "react";
 
 interface props {
@@ -20,10 +19,10 @@ const ArticleCard: FC<props> = ({ article, articleID }) => {
         <div className="card-body">
           <h2 className="card-title mb-4">{title}</h2>
           <p>{snippet}</p>
-          <div className="card-actions justify-end pt-2">
+          <div className="card-actions justify-end">
             <a
               href={`/article/${articleID}`}
-              className="btn btn-primary rounded-lg"
+              className="btn btn-secondary rounded-lg"
             >
               Read More
             </a>

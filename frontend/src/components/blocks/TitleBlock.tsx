@@ -4,14 +4,14 @@ interface props {
   data: Article;
 }
 
-let DataBlock: FC<props> = ({ data }) => {
+const TitleBlock: FC<props> = ({ data }) => {
   let { title, in_game_date: date } = data;
   return (
     <div className="flex flex-col gap-2">
-      <h1 className="text-info text-3xl font-bold">{title}</h1>
+      <h1 className="text-secondary text-2xl font-bold">{title}</h1>
       <h2 className="text-secondary text-lg">{date}</h2>
     </div>
   );
 };
 
-export default DataBlock;
+export default TitleBlock;

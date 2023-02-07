@@ -1,8 +1,8 @@
 import StaffCard from "@/components/StaffCard";
-import authorInformation from "@/helpers/authors";
+import authorInformation from "@/helpers/authorInformation";
 import type { FC } from "react";
 
-let index: FC = () => {
+const index: FC = () => {
   return (
     <div className="mx-auto grid w-max grid-cols-3 justify-items-center gap-10">
       {Object.keys(authorInformation).map((e, i) => {

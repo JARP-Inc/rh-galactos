@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const getArticles = (page: number) => {
+const useLatestArticles = (page: "all" | number = "all") => {
   const [articles, setArticles] = useState<Article[]>([]);
-
   useEffect(() => {
     axios({
       method: "GET",
@@ -22,4 +20,4 @@ const getArticles = (page: number) => {
   return articles;
 };
 
-export default getArticles;
+export default useLatestArticles;

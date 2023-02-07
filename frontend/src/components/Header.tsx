@@ -1,20 +1,19 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import Link from "next/link";
 import type { FC } from "react";
 import AuthProfile from "./unused/AuthProfile";
 
-interface props {}
-
-const Header: FC<props> = () => {
+const Header: FC = () => {
   return (
     <>
-      <div className="navbar bg-primary sticky top-0 z-10 px-16 shadow-lg">
+      <div className="navbar bg-base-100 sticky top-0 z-10 px-16 py-4 shadow-lg">
         <div className="flex-1 items-center gap-10">
-          <img className="my-6 h-16" src="/Logo.svg" />
+          <Link href="/">
+            <Image width="48" height="24" src="/Logo.svg" alt="Galactos Logo" />
+          </Link>
           <Link
             href="/"
-            className="btn btn-link text-4xl normal-case text-white no-underline hover:no-underline"
+            className="btn btn-link text-3xl normal-case text-zinc-400 no-underline hover:text-[#d7cccc] hover:no-underline"
           >
             Γαλάχτοσ
           </Link>

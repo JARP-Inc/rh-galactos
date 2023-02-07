@@ -1,27 +1,24 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable */
 "client";
 import AuthorBlock from "@/components/blocks/AuthorBlock";
-import DataBlock from "@/components/blocks/DataBlock";
-import getArticle from "@/hooks/getArticle";
+import TitleBlock from "@/components/blocks/TitleBlock";
+import useArticleByID from "@/hooks/useArticleByID";
 import { useRouter } from "next/router";
 import { FC } from "react";
 
-interface props {}
-
-const Article: FC<props> = () => {
+const Article: FC = () => {
   let { pid } = useRouter().query;
   if (typeof pid !== "string") return <></>;
 
-  let article: Article = getArticle(pid);
+  let article: Article = useArticleByID(pid);
 
   if (!article) return <>loading...</>;
 
   let { author, content, image_url } = article;
   return (
     <div className="flex flex-col gap-9">
-      <DataBlock data={article} />
-      <img className="overflow-hidden rounded-md bg-cover" src={image_url} />
+      <TitleBlock data={article} />
+      {/* <img className="overflow-hidden rounded-md bg-cover" src={image_url} /> */}
 
       <div className="">
         <div className="float-right ml-6 mb-3 w-1/4">

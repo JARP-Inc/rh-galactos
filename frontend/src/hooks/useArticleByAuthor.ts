@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const getArticlesByAuthor = (authorName: string) => {
+const useArticlesByAuthor = (authorName: string) => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
@@ -22,4 +21,4 @@ const getArticlesByAuthor = (authorName: string) => {
   return articles;
 };
 
-export default getArticlesByAuthor;
+export default useArticlesByAuthor;

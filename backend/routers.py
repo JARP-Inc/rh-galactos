@@ -77,6 +77,15 @@ async def get_article_by_id(id: int):
         return articles
 
 
+@ router.get("/latest", response_description="Get a single article")
+async def get_latest_article():
+    with Session(app.engine) as session:
+        statement = select(Article)
+        # should add try catch to deal with out of bounds id
+        articles = session.exec(statement).one()
+        return articles
+
+
 @ router.get("/author/{author}", response_description="Get an authors articles")
 async def get_article_by_author(author):
     with Session(app.engine) as session:

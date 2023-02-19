@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function getArticle(id: string): Article {
+function useArticleByID(id: string): Article {
   const [article, setArticle] = useState<Article>({
     id: -1,
     title: "loading...",
@@ -25,9 +24,9 @@ function getArticle(id: string): Article {
       .catch((error) => {
         console.log("GET ARTICLE ERROR", error.response.data.error);
       });
-  }, []);
+  }, [id]);
 
   return article;
 }
 
-export default getArticle;
+export default useArticleByID;

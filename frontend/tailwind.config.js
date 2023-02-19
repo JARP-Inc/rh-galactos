@@ -30,6 +30,6 @@ module.exports = {
     }),
   ],
   daisyui: {
-    themes: ["business"],
+    themes: ["forest"],
   },
 };

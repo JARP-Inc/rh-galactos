@@ -43,7 +43,7 @@ async def create_article(prompt, author):
         session.commit()
         session.refresh(new_article)
 
-    await asyncio.get_event_loop().run_in_executor(None, send_sms, phone, 'Read All About It!{}\n\nWritten by {}\n\n http://localhost:3000/article?article={}'.format(headline, unstringify(author), new_article.id))
+    await asyncio.get_event_loop().run_in_executor(None, send_sms, phone, 'Read All About It!{}\n\nWritten by {}\n\n https://galactos-production-2a2b.up.railway.app/article/{}'.format(headline, unstringify(author), new_article.id))
 
     return new_article
 
@@ -72,6 +72,15 @@ async def get_article_by_id(id: int):
     with Session(app.engine) as session:
         article_id = Article.id
         statement = select(Article).where(article_id == id)
+        # should add try catch to deal with out of bounds id
+        articles = session.exec(statement).one()
+        return articles
+
+
+@ router.get("/latest", response_description="Get a single article")
+async def get_latest_article():
+    with Session(app.engine) as session:
+        statement = select(Article)
         # should add try catch to deal with out of bounds id
         articles = session.exec(statement).one()
         return articles

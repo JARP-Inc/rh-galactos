@@ -1,6 +1,8 @@
 t/
 __pycache__
 
+.firebase/
+
 # for frontend:
 # build output
 frontend/dist/

@@ -38,18 +38,5 @@ let staffPage: FC = () => {
     </>
   );
 };
-export async function getStaticPaths() {
-  return {
-    paths: Object.keys(authorInformation).map((e) => {
-      return { params: { aid: e } };
-    }),
-    fallback: false,
-  };
-}
 
-export async function getStaticProps(_: any) {
-  return {
-    props: {},
-  };
-}
 export default staffPage;

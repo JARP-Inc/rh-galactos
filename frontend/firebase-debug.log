@@ -1,0 +1,75 @@
+[debug] [2023-02-05T12:39:41.404Z] ----------------------------------------------------------------------
+[debug] [2023-02-05T12:39:41.408Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-02-05T12:39:41.409Z] CLI Version:   11.22.0
+[debug] [2023-02-05T12:39:41.410Z] Platform:      win32
+[debug] [2023-02-05T12:39:41.410Z] Node Version:  v18.12.1
+[debug] [2023-02-05T12:39:41.412Z] Time:          Sun Feb 05 2023 12:39:41 GMT+0000 (Greenwich Mean Time)
+[debug] [2023-02-05T12:39:41.413Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-05T12:39:41.556Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-05T12:39:41.557Z] > authorizing via signed-in user (theawsomejt@gmail.com)
+[debug] [2023-02-05T12:39:41.558Z] [iam] checking project galactos-8fc47 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-02-05T12:39:41.562Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions [none]
+[debug] [2023-02-05T12:39:41.563Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions x-goog-quota-user=projects/galactos-8fc47
+[debug] [2023-02-05T12:39:41.563Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-05T12:39:42.250Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions 200
+[debug] [2023-02-05T12:39:42.251Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-05T12:39:42.256Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 [none]
+[debug] [2023-02-05T12:39:42.739Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 200
+[debug] [2023-02-05T12:39:42.740Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 {"projectId":"galactos-8fc47","projectNumber":"283658032896","displayName":"Galactos","name":"projects/galactos-8fc47","resources":{"hostingSite":"galactos-8fc47"},"state":"ACTIVE","etag":"1_c11a1ff9-5bee-4d6c-9aa5-573b7da2f5e9"}
+[debug] [2023-02-05T12:40:38.223Z] TypeError: Cannot read properties of null (reading 'toString')
+    at ɵcodegenFunctionsDirectory (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:222:18)
+    at async prepareFrameworks (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:306:84)
+    at async deploy (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-02-05T12:41:01.590Z] ----------------------------------------------------------------------
+[debug] [2023-02-05T12:41:01.595Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-02-05T12:41:01.597Z] CLI Version:   11.22.0
+[debug] [2023-02-05T12:41:01.597Z] Platform:      win32
+[debug] [2023-02-05T12:41:01.598Z] Node Version:  v18.12.1
+[debug] [2023-02-05T12:41:01.600Z] Time:          Sun Feb 05 2023 12:41:01 GMT+0000 (Greenwich Mean Time)
+[debug] [2023-02-05T12:41:01.601Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-05T12:41:01.888Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-05T12:41:01.891Z] > authorizing via signed-in user (theawsomejt@gmail.com)
+[debug] [2023-02-05T12:41:01.891Z] [iam] checking project galactos-8fc47 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-02-05T12:41:01.907Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions [none]
+[debug] [2023-02-05T12:41:01.909Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions x-goog-quota-user=projects/galactos-8fc47
+[debug] [2023-02-05T12:41:01.911Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-05T12:41:02.952Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions 200
+[debug] [2023-02-05T12:41:02.953Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-05T12:41:02.957Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 [none]
+[debug] [2023-02-05T12:41:03.542Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 200
+[debug] [2023-02-05T12:41:03.543Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 {"projectId":"galactos-8fc47","projectNumber":"283658032896","displayName":"Galactos","name":"projects/galactos-8fc47","resources":{"hostingSite":"galactos-8fc47"},"state":"ACTIVE","etag":"1_c11a1ff9-5bee-4d6c-9aa5-573b7da2f5e9"}
+[debug] [2023-02-05T12:41:51.584Z] TypeError: Cannot read properties of null (reading 'toString')
+    at ɵcodegenFunctionsDirectory (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:222:18)
+    at async prepareFrameworks (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:306:84)
+    at async deploy (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-02-05T12:45:36.382Z] ----------------------------------------------------------------------
+[debug] [2023-02-05T12:45:36.387Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-02-05T12:45:36.389Z] CLI Version:   11.22.0
+[debug] [2023-02-05T12:45:36.390Z] Platform:      win32
+[debug] [2023-02-05T12:45:36.390Z] Node Version:  v18.12.1
+[debug] [2023-02-05T12:45:36.393Z] Time:          Sun Feb 05 2023 12:45:36 GMT+0000 (Greenwich Mean Time)
+[debug] [2023-02-05T12:45:36.395Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-05T12:45:36.560Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-05T12:45:36.561Z] > authorizing via signed-in user (theawsomejt@gmail.com)
+[debug] [2023-02-05T12:45:36.562Z] [iam] checking project galactos-8fc47 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-02-05T12:45:36.567Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions [none]
+[debug] [2023-02-05T12:45:36.567Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions x-goog-quota-user=projects/galactos-8fc47
+[debug] [2023-02-05T12:45:36.567Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-05T12:45:37.168Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions 200
+[debug] [2023-02-05T12:45:37.169Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/galactos-8fc47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-05T12:45:37.174Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 [none]
+[debug] [2023-02-05T12:45:37.657Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 200
+[debug] [2023-02-05T12:45:37.658Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/galactos-8fc47 {"projectId":"galactos-8fc47","projectNumber":"283658032896","displayName":"Galactos","name":"projects/galactos-8fc47","resources":{"hostingSite":"galactos-8fc47"},"state":"ACTIVE","etag":"1_c11a1ff9-5bee-4d6c-9aa5-573b7da2f5e9"}
+[debug] [2023-02-05T12:46:22.031Z] TypeError: Cannot read properties of null (reading 'toString')
+    at ɵcodegenFunctionsDirectory (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:222:18)
+    at async prepareFrameworks (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:306:84)
+    at async deploy (C:\Users\Jake\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.
